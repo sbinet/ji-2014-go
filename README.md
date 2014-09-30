@@ -105,8 +105,8 @@ CXX="g++"
 CGO_ENABLED="1"
 ```
 
-(on other platforms/architectures, the output might slightly
-differ. The important env.vars. are `GOPATH` and `GOROOT`.)
+(on other platforms/architectures, the output might differ
+slightly. The important env.vars. are `GOPATH` and `GOROOT`.)
 
 ### Testing `go get`
 
