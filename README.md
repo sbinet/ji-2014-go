@@ -90,8 +90,8 @@ $ go get github.com/sbinet/ji-2014-go/cmd/ji-hello
 ```
 
 `go get` downloaded (cloned, in `git` speak) the whole
-`github.com/sbinet/ji-2014-go` repository and compiled the `ji-hello`
-command.
+`github.com/sbinet/ji-2014-go` repository (under `$GOPATH/src`) and
+compiled the `ji-hello` command.
 As the compilation was successful, it also installed the `ji-hello`
 command under `$GOPATH/bin`.
 
@@ -104,3 +104,22 @@ Hello JI-2014!
 $ ji-hello you
 Hello you!
 ```
+
+## Documentation
+
+The `Go` programming language is quite new (released in 2009) but
+ships already with quite a fair amount of documentation.
+Here are a few pointers:
+
+- http://golang.org/doc/code.html
+- http://tour.golang.org
+- http://golang.org/doc/effective_go.html
+- http://dave.cheney.net/resources-for-new-go-programmers
+- http://gobyexample.com
+
+For more advanced topics:
+
+- http://talks.golang.org
+- http://blog.golang.org
+- https://groups.google.com/d/forum/golang-nuts (`Go` community forum)
+- the internets. typical queries are `go something` or `golang something`
