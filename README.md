@@ -117,7 +117,7 @@ code (you'll need `git` to fetch the code):
 $ go get github.com/sbinet/ji-2014-go/cmd/ji-hello
 ```
 
-`go get` downloaded (cloned, in `git` speak) the
+`go get` downloaded (cloned, in `git` speak) the whole
 `github.com/sbinet/ji-2014-go` repository and compiled the `ji-hello`
 command.
 As the compilation was successful, it also installed the `ji-hello`
