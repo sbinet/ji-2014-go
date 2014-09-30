@@ -40,6 +40,9 @@ $ export GOROOT=/somewhere/go
 $ export PATH=$GOROOT/bin:$PATH
 $ which go
 /somewhere/go/bin/go
+
+$ which godoc
+/somewhere/go/bin/godoc
 ```
 
 ### Setting up the work environment
