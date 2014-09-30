@@ -16,9 +16,12 @@ There are 3 ways to do so:
 - install `Go` via `docker`
 - install `Go` manually.
 
-The first way is distribution/OS dependent. Please refer to your
-favorite forum.
-We'll only describe the 2 other ways.
+While all 3 methods are valid ones, to reduce the complexity of the
+debugging/configuration matrix, we'll only recommend the last one.
+
+Do note that installing `Go` via `homebrew` on `MacOSX` is known to
+have some deficiencies. On `Macs`, it is really recommended to use the
+manual method (either from sources, or the `DMG`-based method.)
 
 #### Installing `Go` manually
 
@@ -36,38 +39,6 @@ $ export GOROOT=/somewhere/go
 $ export PATH=$GOROOT/bin:$PATH
 $ which go
 /somewhere/go/bin/go
-```
-
-#### Installing `Go` via `docker`
-
-If you have `docker` installed, installing `Go` is as easy as:
-
-```sh
-$ docker pull golang:latest
-$ docker images | grep golang
-golang                 latest              1744b082eb8f        2 days ago          373.4 MB
-```
-
-You can now test it like so:
-
-```sh
-$ docker run -i -t golang /bin/bash
-$ go env
-GOARCH="amd64"
-GOBIN=""
-GOCHAR="6"
-GOEXE=""
-GOHOSTARCH="amd64"
-GOHOSTOS="linux"
-GOOS="linux"
-GOPATH="/go"
-GORACE=""
-GOROOT="/usr/src/go"
-GOTOOLDIR="/usr/src/go/pkg/tool/linux_amd64"
-CC="gcc"
-GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0"
-CXX="g++"
-CGO_ENABLED="1"
 ```
 
 ### Setting up the work environment
