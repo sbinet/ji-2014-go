@@ -12,16 +12,17 @@ The `Go` hands-on session obviously needs for you to install the `Go`
 toolchain.
 
 There are 3 ways to do so:
-- install `Go` via your favorite package manager (`yum`, `apt-get`, ...)
+- install `Go` via your favorite package manager (`yum`, `apt-get`,
+  `fink`, ...)
 - install `Go` via `docker`
 - install `Go` manually.
 
 While all 3 methods are valid ones, to reduce the complexity of the
-debugging/configuration matrix, we'll only recommend the last one.
+debugging/configuration/OS matrix, we'll only recommend the last one.
 
-Do note that installing `Go` via `homebrew` on `MacOSX` is known to
-have some deficiencies. On `Macs`, it is really recommended to use the
-manual method (either from sources, or the `DMG`-based method.)
+**WARNING:** Do note that installing `Go` via `homebrew` on `MacOSX`
+is known to have some deficiencies. On `Macs`, it is really
+recommended you use the manual method.
 
 #### Installing `Go` manually
 
