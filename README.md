@@ -38,6 +38,7 @@ $ curl -O -L https://storage.googleapis.com/golang/go1.3.2.linux-amd64.tar.gz
 $ tar zxf go1.3.2.linux-amd64.tar.gz
 $ export GOROOT=/somewhere/go
 $ export PATH=$GOROOT/bin:$PATH
+
 $ which go
 /somewhere/go/bin/go
 
