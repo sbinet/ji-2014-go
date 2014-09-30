@@ -116,3 +116,19 @@ code (you'll need `git` to fetch the code):
 ```sh
 $ go get github.com/sbinet/ji-2014-go/cmd/ji-hello
 ```
+
+`go get` downloaded (cloned, in `git` speak) the
+`github.com/sbinet/ji-2014-go` repository and compiled the `ji-hello`
+command.
+As the compilation was successful, it also installed the `ji-hello`
+command under `$GOPATH/bin`.
+
+The `ji-hello` command is now available from your shell:
+
+```sh
+$ ji-hello
+Hello JI-2014!
+
+$ ji-hello you
+Hello you!
+```
