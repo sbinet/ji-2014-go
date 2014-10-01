@@ -109,6 +109,22 @@ $ ji-hello you
 Hello you!
 ```
 
+## Setting up your favorite editor
+
+Extensive documentation on how to setup your editor (for code
+highlighting, code completion, ...) is available here:
+
+ https://code.google.com/p/go-wiki/wiki/IDEsAndTextEditorPlugins
+ 
+At the very least, you should try to install and setup `goimports` as
+explained here:
+
+ https://godoc.org/code.google.com/p/go.tools/cmd/goimports
+
+`goimports` provides automatic code formating as well as automated
+insertion/deletion of used/unused packages (in your `import` package
+statements.)
+
 ## Documentation
 
 The `Go` programming language is quite new (released in 2009) but
