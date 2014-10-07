@@ -143,7 +143,7 @@ Create a `hello` directory in your namespace and copy `hello.go` there:
   $ mkdir $GOPATH/src/github.com/ji-go/hello
   $ cp hello.go $GOPATH/src/github.com/ji-go/hello
 
-Now you can build install the hello program with the `go` tool:
+Now you can build and install the hello program with the `go` tool:
 
   $ go install github.com/ji-go/hello
 
@@ -429,3 +429,17 @@ A typical example is the `encoding/gzip.NewReader` function which takes an `io.R
 
   $ echo "hello" | ex-04 | ex-04
   hello
+
+
+
+
+
+* Acknowledgements / resources
+
+Most of this tutorial/workshop has been extracted or adapted from:
+
+.link http://talks.golang.org/2012/tutorial.slide
+
+.link http://tour.golang.org
+
+
