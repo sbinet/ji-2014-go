@@ -4,6 +4,8 @@ ji-2014-go
 `ji-2014-go` is a simple repository holding sources for the `Go`
 hands-on session of the [JI-2014](http://ji.in2p3.fr)
 
+An online version of the slides is served [here](http://talks.godoc.org/github.com/sbinet/ji-2014-go/slides/ji-2014-go.slide#1).
+
 ## Bootstrapping the work environment
 
 ### Installing the `Go` toolchain
