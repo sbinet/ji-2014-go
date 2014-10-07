@@ -431,8 +431,13 @@ A typical example is the `encoding/gzip.NewReader` function which takes an `io.R
   hello
 
 
+* ex-05 - walking and indexing a filesystem tree
 
-
+In this last exercize, we'll create a command which:
+- will walk a filesystem hierarchy, 
+- collect some metadata about the directories and files, 
+- store this metadata in a `JSON` format,
+- and implement (simple) queries to this metadata store.
 
 * Acknowledgements / resources
 
