@@ -1,0 +1,156 @@
+Go workshop
+JI-2014, 2014/10/15
+
+Sebastien Binet
+CNRS/IN2P3
+
+
+* Background
+
+# In this tutorial I'll show you how to install and use the Go Programming Language.
+
+* What is Go?
+
+Go is a new, general-purpose programming language.
+
+- Compiled
+- Statically typed
+- Concurrent
+- Simple
+- Productive
+
+"Go is a wise, clean, insightful, fresh thinking approach to the greatest-hits subset of the well understood."
+- Michael T. Jones
+
+
+* History
+
+- Project starts at Google in 2007 (by Griesemer, Pike, Thompson)
+- Open source release in November 2009
+- More than 250 contributors join the project
+- Version 1.0 release in March 2012
+- Version 1.1 release in May 2013
+- Version 1.2 release in December 2013
+- Version 1.3 release in June 2014
+
+# Go was originally built by a team at Google, led by Robert Griesemer, Rob Pike, and Ken Thompson. In November 2010, Go was launched publically as an open source project. Since then, a team at Google and more than 250 contributors from the open source community continued to improve the Go language, libraries, and tools.
+
+# In March 2012, we announced Go 1, a version of the language and libraries that will be supported for years to come. 
+
+* Getting started
+
+* Install Go
+
+.link http://golang.org/doc/install
+
+- Install from binary distributions or build from source
+- 32- and 64-bit x86 and ARM processors
+- Windows, Mac OS X, Linux, and FreeBSD
+- Other platforms may be supported by `gccgo`
+
+# Go is available in binary form for Windows, Mac OS X, Linux, and FreeBSD running under 32 and 64-bit x86 processor architectures. To install Go on these systems, download the appropriate file from golang.org and either open the package installer (Windows or OS X) or extract the archive to /usr/local/go (Linux and FreeBSD).  
+
+# If you use a different operating system or processor architecture, you may still be able to use Go by building it from source or using gccgo (an alternate Go compiler based on the GNU C Compiler). See the installation instructions on golang.org for how to do this.
+
+* Test your Go installation
+
+# Let's build and run a simple Go program to check that we have a valid Go install. Create a file named hello.go somewhere convenient and populate it with this Go source code:
+
+Put this code into `hello.go`:
+
+.code tutorial/hello.go
+
+# Now, from a command prompt, run `go run hello.go`. This will build your program, storing the executable binary in a temporary location, and run it. You should see the greeting printed to the console.
+
+Run the program:
+
+  $ go run hello.go
+
+
+* The go tool
+
+The `go` tool is the standard tool for building, testing, and installing Go programs.
+
+Compile and run `hello.go`:
+
+  $ go run hello.go
+
+Run `zip` tests:
+
+  $ go test archive/zip
+
+Build and format the files in the current directory:
+
+  $ go build
+  $ gofmt
+
+Fetch and install `websocket`:
+
+  $ go get code.google.com/p/go.net/websocket 
+
+* Workspaces
+
+The `go` tool derives build instructions from Go source code.
+
+There's no need to write and maintain build scripts.
+
+For this to work, some prescribed directory structure, known as a workspace, is required.
+
+  workspace/
+    bin # executable binaries
+    pkg # compiled object files
+    src # source code
+
+* Create a workspace
+
+Create your workspace now.
+
+#I prefer to use the name "gocode", but you can use whatever you like.
+
+  $ mkdir -p $HOME/ji-go-work/src
+
+(The `bin` and `pkg` sub-directories will be created by the `go` tool.)
+
+Tell the `go` tool where your workspace is by setting the `GOPATH` environment variable:
+# You can do this on OS X, Linux, and FreeBSD by adding this line to the `$HOME/.profile` and re-starting any running shells:
+
+  export GOPATH=$HOME/ji-go-work
+
+# See the installation instructions at golang.org for how to set `GOPATH` under Windows.
+
+You may also want to add the `bin` sub-directory of your workspace to your `PATH`:
+
+  export PATH=$PATH:$GOPATH/bin
+
+This lets you run your Go programs without specifying their full path.
+
+(You may want to put these `export` commands in the `.bash_profile` file in your home directory.)
+
+* Choose a namespace
+
+Choose a special place for your Go code.
+
+I use `"github.com/sbinet"`, the root of my GitHub account (useful with `go get`).
+
+For this tutorial, let us all use `"github.com/ji-go"`
+
+# Once you have chosen a namespace, create the required paths inside the `src` directory of your workspace:
+
+  $ mkdir -p $GOPATH/src/github.com/ji-go
+
+Create a `hello` directory in your namespace and copy `hello.go` there:
+  
+  $ mkdir $GOPATH/src/github.com/ji-go/hello
+  $ cp hello.go $GOPATH/src/github.com/ji-go/hello
+
+Now you can build install the hello program with the `go` tool:
+
+  $ go install github.com/ji-go/hello
+
+This builds an executable named `hello`, and installs it to the `bin` directory of your workspace.
+
+  $ $GOPATH/bin/hello
+  Hello, fellow gopher
+
+
+* Our project
