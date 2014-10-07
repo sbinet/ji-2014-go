@@ -356,3 +356,76 @@ Let's modify `ex-03` to display general statistics:
 Let's create a new `rot13` package:
 
   $ mkdir -p $GOPATH/src/github.com/ji-go/rot13
+
+- `rot13` will implement the Caesar cipher ("rotate by 13 places"):
+
+.link http://en.wikipedia.org/wiki/ROT13
+
+
+* ex-04 - rot13 - II
+
+- in that `rot13` package, create `rot13_test.go` with the following content:
+
+.code tutorial/rot13_test.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/
+
+
+* ex-04 - rot13 - III
+
+- in that `rot13` package, create `rot13_test.go` with the following content:
+
+.code tutorial/rot13_test.go /^func TestRot13/,/^}/
+
+
+* ex-04 - rot13 - IV
+
+- still in `rot13`, create `rot13.go` with the following content:
+
+  package rot13
+
+  func rot13(b byte) byte {
+       // ...
+  }
+
+- under this `rot13` transformation, `"hello"` should become `"uryyb"`
+
+- run:
+
+  $ go test -v
+  === RUN TestRot13
+  --- PASS: TestRot13 (0.00 seconds)
+  PASS
+  ok  	github.com/ji-go/rot13	0.002s
+  
+and modify the `rot13` function until the test passes.
+
+- `go` `test` builds and runs the tests in the local directory.
+
+
+* ex-04 - V
+
+A common pattern in `Go` is an `io.Reader` that wraps another `io.Reader`, modifying the stream in some way.
+
+A typical example is the `encoding/gzip.NewReader` function which takes an `io.Reader` (a stream of gzipped data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+
+- create a new `ex-04` program with the following content:
+
+.code tutorial/ex-04.go
+
+
+* ex-04 - VI
+
+- now, in `rot13.go` implement the `io.Reader` interface:
+
+.code tutorial/rot13.go /STARTROT13 OMIT/,/ENDROT13 OMIT/
+
+  func (r reader) Read(p []byte) (int, error) {
+       // ...
+  }
+
+- eventually, the following should work:
+
+  $ echo "hello" | ex-04
+  uryyb
+
+  $ echo "hello" | ex-04 | ex-04
+  hello
