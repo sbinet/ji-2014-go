@@ -58,7 +58,7 @@ Go is a new, general-purpose programming language.
 
 Put this code into `hello.go`:
 
-.code tutorial/hello.go
+.play tutorial/hello.go
 
 # Now, from a command prompt, run `go run hello.go`. This will build your program, storing the executable binary in a temporary location, and run it. You should see the greeting printed to the console.
 
@@ -153,4 +153,206 @@ This builds an executable named `hello`, and installs it to the `bin` directory 
   Hello, fellow gopher
 
 
-* Our project
+* Hello World - web-2.0
+
+Create a `hello-web` directory in your namespace and put `hello-web.go` there:
+
+  $ mkdir $GOPATH/src/github.com/ji-go/hello-web
+
+.code tutorial/hello-web.go
+
+# Build and run `go build && ./hello-web`
+
+* ex-01: a program printing out its arguments
+
+.code tutorial/ex-01.go
+
+  $ ex-01 foo bar baz 01234
+  args: [ex-01 foo bar baz 01234]
+
+  $ `which ex-01` foo bar baz 01234 
+  args: [/home/binet/ji-go-work/bin/ex-01 foo bar baz 01234]
+
+* Interlude: godoc
+
+Browsing documentation is performed with `godoc`.
+
+  $ godoc os | less
+
+  PACKAGE DOCUMENTATION
+
+  package os
+    import "os"
+
+    Package os provides a platform-independent interface to operating system
+    functionality. The design is Unix-like, although the error handling is
+    Go-like; failing calls return values of type error rather than error
+    numbers. Often, more information is available within the error. For
+    example, if a call that takes a file name fails, such as Open or Stat,
+    the error will include the failing file name when printed and will be of
+    type *PathError, which may be unpacked for more information.
+
+
+* 
+
+  $ godoc os File | less
+
+
+  type File struct {
+      // contains filtered or unexported fields
+  }
+      File represents an open file descriptor.
+  
+  func Create(name string) (file *File, err error)
+      Create creates the named file mode 0666 (before umask), truncating it if
+      it already exists. If successful, methods on the returned File can be
+      used for I/O; the associated file descriptor has mode O_RDWR. If there
+      is an error, it will be of type *PathError.
+  
+  func Open(name string) (file *File, err error)
+      Open opens the named file for reading. If successful, methods on the
+      returned file can be used for reading; the associated file descriptor
+      has mode O_RDONLY. If there is an error, it will be of type *PathError.
+
+
+* 
+
+Also available from:
+
+.link http://golang.org/pkg
+
+.link http://golang.org/pkg/os
+
+or locally:
+
+  $ godoc -http=:8080
+  $ open localhost:8080/pkg
+
+
+* ex-01 - II
+
+  $ godoc os Args
+
+  var Args []string
+      Args hold the command-line arguments, starting with the program name.
+
+
+Modify `ex-01` to iterate over this slice and print each argument (except the executable name) on a line, prefixed with its index number:
+
+  $ ex-01 foo baz
+  0: "foo"
+  1: "baz"
+
+(Make sure it still works when no argument is passed to the command)
+
+
+* ex-01 - II (solution)
+
+.code tutorial/ex-01-index.go
+
+
+* ex-02 - a simple calculator
+
+Let's create a new `ex-02` program taking integers as arguments from the command line and returning their sum:
+
+  $ ex-02 1 2 3 4 100
+  sum= 110
+
+  $ ex-02 1 2 3 4 100 01
+  sum= 111
+
+  $ ex-02 1 2 3 4 100 1.2
+  **error** strconv.ParseInt: parsing "1.2": invalid syntax
+
+*Hint:* `godoc` `strconv`
+
+* ex-02 - solution
+
+.code tutorial/ex-02.go
+
+
+* ex-02 - II
+
+Let's modify `ex-02` to take an optional `-v` argument to enable a verbose mode, displaying the running sum:
+
+  $ ex-02 -v 1 2 3 4 100
+  0
+  + 1 -> 1
+  + 2 -> 3
+  + 3 -> 6
+  + 4 -> 10
+  + 100 -> 110
+  ===============
+  sum= 110
+
+
+  $ ex-02 1 2 3 4 100
+  sum= 110
+
+*Hint:* `godoc` `flag`
+*Hint:* beware, correctly handle the extra `-v` argument.
+
+
+* ex-02 - II (solution)
+
+.code tutorial/ex-02-flag.go /^func main/,/^}/ HLflag
+
+
+* ex-03 - parsing a text file
+
+Let's create a new `ex-03` program which will open a text file and count words in it:
+
+  $ ex-03 testdata/lorem-ipsum.txt
+  69
+
+*Hint:* `godoc` `os` `Open`
+*Hint:* `godoc` `io` `EOF`
+*Hint:* `godoc` `bufio`
+
+*Hint:* if it returns `70` you are not correctly handling empty strings.
+
+* ex-03 (solution)
+
+.code tutorial/ex-03.go /^func main/,/^}/ HLxxx
+
+
+* ex-03 - II
+
+Let's modify `ex-03` to display general statistics:
+- number of lines
+- number of words
+- 5 most popular words
+
+ $ ex-03 testdata/lorem-ipsum.txt
+  #lines: 7
+  #words: 69
+
+  popcon:
+  #1: "in" (3)
+  #2: "ut" (2)
+  #3: "dolore" (2)
+  #4: "dolor" (2)
+  #5: "voluptate" (1)
+
+*Hint:* use a `map[string]int`
+*Hint:* `godoc` `sort` `Sort`
+*Hint:* `godoc` `sort` `Reverse`
+
+* ex-03 - II (solution)
+
+.code tutorial/ex-03-stats.go /START OMIT/,/END OMIT/ HLxxx
+
+
+* ex-03 - II (solution)
+
+.code tutorial/ex-03-stats.go /STARTSORT OMIT/,/ENDSORT OMIT/ HLxxx
+
+* ex-03 - II (solution)
+
+.code tutorial/ex-03-stats.go /STARTITEM OMIT/,/ENDITEM OMIT/ HLxxx
+
+* ex-04 - rot13
+
+Let's create a new `rot13` package:
+
+  $ mkdir -p $GOPATH/src/github.com/ji-go/rot13
