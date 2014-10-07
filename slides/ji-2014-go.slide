@@ -78,6 +78,7 @@ Compile and run `hello.go`:
 Run `zip` tests:
 
   $ go test archive/zip
+  ok  	archive/zip	19.557s
 
 Build and format the files in the current directory:
 
