@@ -404,6 +404,11 @@ Algorithm:
 
 .code _code/histo0.go /main START/,/main END/
 
+* A variation: Histogram of Go statements
+
+Let's create a new program called `indexer`.
+
+Initial code in: [[http://github.com/sbinet/ji-2014-go/blob/master/indexer/main.go][github.com/sbinet/ji-2014-go/indexer]]
 
 * Processing a Go source file
 
