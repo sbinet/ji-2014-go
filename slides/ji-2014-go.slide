@@ -438,7 +438,54 @@ In this last exercize, we'll create a command which:
 - will walk a filesystem hierarchy, 
 - collect some metadata about the directories and files, 
 - store this metadata in a `JSON` format,
-- and implement (simple) queries to this metadata store.
+# - and implement (simple) queries to this metadata store.
+
+* ex-05 - start
+
+Let's start with the following `ex-05.go`:
+
+.code _code/ex-05.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/
+
+* ex-05 - start (cont'd)
+
+.code _code/ex-05.go /^func main/,/^}/ HLflag
+
+* ex-05 - metadata
+
+We'll store informations about files and directories in the following struct:
+
+.code _code/ex-05.go /STARTSTAT OMIT/,/ENDSTAT OMIT/ HLflag
+
+Now, modify `main` to accumulate metadata in a `[]Stat` slice during the `filepath.Walk`.
+
+* ex-05 - metadata (solution)
+
+.code _code/ex-05-accstat.go /STARTWALK OMIT/,/ENDWALK OMIT/ HLxxx
+
+* ex-05 - storage
+
+- Modify `ex-05` to accept a `-o` argument defaulting to `"index.json"`, to get the path to the file which will hold the `JSON` representation of `[]Stat`,
+
+- Using the documentation of `"encoding/json"`, store `[]Stat` in the index file.
+
+
+* ex-05 - storage (solution)
+
+.code _code/ex-05-accstat.go /STARTENCODE OMIT/,/ENDENCODE OMIT/ HLxxx
+
+
+* ex-05 - storage (bis)
+
+Actually, we changed our mind: it should be possible to store the index in `JSON` or in `XML`.
+
+- Modify `ex-05` to change the encoding method based on the extension of the index file (`".xml"` or `".json"`)
+
+*Hint:* create a local `Encoder interface` the `JSON` and `XML` encoders can implicitly satisfy.
+
+* ex-05 - storage (bis) (solution)
+
+.code _code/ex-05-storage.go /STARTINTERFACE OMIT/,/ENDINTERFACE OMIT/ HLxxx
+.code _code/ex-05-storage.go /STARTENCODE OMIT/,/ENDENCODE OMIT/ HLxxx
 
 * Acknowledgements / resources
 
