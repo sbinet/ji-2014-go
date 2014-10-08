@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	ndirs  = flag.Int("ndirs", 5, "number of top-level directories (seeds under top-level path)")
 	depth  = flag.Int("depth", 5, "depth of directories to generate")
+	ndirs  = flag.Int("ndirs", 5, "number of directories per directory")
 	nfiles = flag.Int("nfiles", 10, "maximal number of files to generate per directory")
 	root   = flag.String("root", "", "path to top-level directory under which to generate the structure ($PWD by default)")
 )
