@@ -92,7 +92,8 @@ Now that the `go` tool is correctly setup, let's try to fetch some
 code (you'll need `git` to fetch the code):
 
 ```sh
-$ go get github.com/sbinet/ji-2014-go/cmd/ji-hello
+$ go get -u -v github.com/sbinet/ji-2014-go/cmd/ji-hello
+$ go get -u -v code.google.com/p/go.tools/cmd/present
 ```
 
 `go get` downloaded (cloned, in `git` speak) the whole
