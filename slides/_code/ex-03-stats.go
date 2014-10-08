@@ -20,10 +20,8 @@ type Words []Word
 func (p Words) Len() int { return len(p) }
 
 func (p Words) Less(i, j int) bool {
-	ii := p[i]
-	jj := p[j]
-	switch {
-	case ii.count == jj.count:
+	ii, jj := p[i], p[j]
+	if ii.count == jj.count {
 		return ii.word < jj.word
 	}
 	return ii.count < jj.count

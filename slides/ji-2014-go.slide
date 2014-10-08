@@ -339,6 +339,24 @@ Let's modify `ex-03` to display general statistics:
 *Hint:* `godoc` `sort` `Sort`
 *Hint:* `godoc` `sort` `Reverse`
 
+* Sorting
+
+sort.Sort operates on any type that implements the sort.Interface:
+
+	interface {
+		Len() int
+		Swap(i, j int)
+		Less(i, j int) bool
+	}
+
+For instance, to sort a slice of strings lexically, define:
+
+.code _code/sort.go /lexical START/,/lexical END/
+
+And sort:
+
+	sort.Sort(lexical(s))  // where s is a []string slice
+
 * ex-03 - II (solution)
 
 .code _code/ex-03-stats.go /START OMIT/,/END OMIT/ HLxxx
@@ -480,18 +498,131 @@ Actually, we changed our mind: it should be possible to store the index in `JSON
 
 - Modify `ex-05` to change the encoding method based on the extension of the index file (`".xml"` or `".json"`)
 
-*Hint:* create a local `Encoder interface` the `JSON` and `XML` encoders can implicitly satisfy.
+*Hint:* create a local `encoder` `interface` the `JSON` and `XML` encoders can implicitly satisfy:
+
+  type encoder interface {
+    // ???
+  }
 
 * ex-05 - storage (bis) (solution)
 
 .code _code/ex-05-storage.go /STARTINTERFACE OMIT/,/ENDINTERFACE OMIT/ HLxxx
 .code _code/ex-05-storage.go /STARTENCODE OMIT/,/ENDENCODE OMIT/ HLxxx
 
+* ex-05 - refactor
+
+- Refactor the `filepath.Walk` into a function `index`:
+
+  func index(root string) ([]Stat, error) {
+       // ...
+  }
+
+- Modify `ex-05` to take a list of top-level directories to index, from the command-line. (drop the `"-root"` flag). _ie:_
+
+  $ ex-05 -o index.json dir1 dir2 dir3
+
+
+* ex-05 - refactor (solution)
+
+.code _code/ex-05-refactor.go /STARTWALK OMIT/,/ENDWALK OMIT/ HLxxx
+
+* ex-05 - refactor (solution)
+
+  func index(root string) ([]Stat, error) {
+  	stats := make([]Stat, 0, 10)
+  	err := filepath.Walk(root, func(path string, fi os.FileInfo, err error) error {
+
+  		// ... as previously ...
+
+  		stats = append(stats, stat)
+  
+  		if fi.IsDir() {
+  			return nil
+  		}
+  		return err
+  	})
+  
+  	if err != nil {
+  		return nil, err // HLxxx
+  	}
+  
+  	return stats, err
+  }
+
+* Concurrency
+
+What if walking the directories take a long time ?
+
+Wouldn't it be great to walk those concurrently ?
+
+Especially if the next task is CPU-time consumming (so interleaving I/O- and CPU-bound tasks could lead to dramatical throughput increase) ...
+
+
+* Interlude: Concurrency
+
+* Goroutines
+
+- The _go_ statement launches a function call as a goroutine
+	go f()
+	go f(x, y, ...)
+
+- A goroutine runs concurrently (but not necessarily in parallel)
+- A goroutine has its own stack
+
+
+* A simple example
+
+.code _code/concurrency1.go /f START/,/f END/
+
+Function f is launched as 3 different goroutines, all running concurrently:
+
+.play _code/concurrency1.go /main START/,/main END/
+
+* Communication via channels
+
+A channel type specifies a channel value type (and possibly a communication direction):
+
+	chan int
+	chan<- string  // send-only channel
+	<-chan T       // receive-only channel
+
+A channel is a variable of channel type:
+
+	var ch chan int
+	ch := make(chan int)  // declare and initialize with newly made channel
+
+A channel permits _sending_ and _receiving_ values:
+
+	ch <- 1   // send value 1 on channel ch
+	x = <-ch  // receive a value from channel ch (and assign to x)
+
+Channel operations synchronize the communicating goroutines.
+
+* Communicating goroutines
+
+Each goroutine sends its results via channel ch:
+
+.code _code/concurrency2.go /f START/,/f END/
+
+The main goroutine receives (and prints) all results from the same channel:
+
+.play _code/concurrency2.go /main START/,/main END/
+
+
+* Putting it all together
+
+
+* ex-05 - concurrency
+
+- create a `chan Stat` which will a
+
 * Acknowledgements / resources
 
 Most of this tutorial has been extracted or adapted from:
 
 .link http://talks.golang.org/2012/tutorial.slide
+
+.link http://talks.golang.org/2014/taste.slide
 
 .link http://tour.golang.org
 

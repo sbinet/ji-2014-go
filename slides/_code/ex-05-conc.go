@@ -15,8 +15,7 @@ import (
 )
 
 var (
-	root = flag.String("root", "", "top-level directory to inspect (default=$PWD)")
-	out  = flag.String("o", "index.json", "path to index file")
+	out = flag.String("o", "index.json", "path to index file")
 )
 
 // ENDIMPORT OMIT
@@ -43,42 +42,24 @@ func main() {
 	var err error
 	flag.Parse()
 
-	if *root == "" {
-		*root = "."
-	}
-
-	*root, err = filepath.Abs(os.ExpandEnv(*root))
-	if err != nil {
-		log.Fatalf("error: %v\n", err)
-	}
-
 	// STARTWALK OMIT
-	stats := make([]Stat, 0, 10) // HLxxx
-	err = filepath.Walk(*root, func(path string, fi os.FileInfo, err error) error {
-		fmt.Printf(">>> %s\n", path)
-		stat := Stat{
-			Name: path,
-			Size: fi.Size(),
+	stats := make([]Stat, 0, 10)
+	for _, root := range flag.Args() { // HLxxx
+		if root == "" {
+			root = "."
 		}
-		switch {
-		case fi.IsDir():
-			stat.Type = Dir
-		case fi.Mode().IsRegular():
-			stat.Type = File
+		root, err = filepath.Abs(os.ExpandEnv(root))
+		if err != nil {
+			log.Fatalf("error: %v\n", err)
 		}
 
-		stats = append(stats, stat) // HLxxx
-
-		if fi.IsDir() {
-			return nil
+		s, err := index(root) // HLxxx
+		if err != nil {
+			log.Fatalf("error: %v\n", err)
 		}
-		return err
-	})
-	// ENDWALK OMIT
-
-	if err != nil {
-		log.Fatalf("error: %v\n", err)
+		stats = append(stats, s...) // HLxxx
 	}
+	// ENDWALK OMIT
 
 	// STARTENCODE OMIT
 	f, err := os.Create(*out)
@@ -119,3 +100,36 @@ const (
 )
 
 // ENDSTAT OMIT
+
+// STARTINDEX OMIT
+func index(root string) ([]Stat, error) {
+	stats := make([]Stat, 0, 10) // HLxxx
+	err := filepath.Walk(root, func(path string, fi os.FileInfo, err error) error {
+		fmt.Printf(">>> %s\n", path)
+		stat := Stat{
+			Name: path,
+			Size: fi.Size(),
+		}
+		switch {
+		case fi.IsDir():
+			stat.Type = Dir
+		case fi.Mode().IsRegular():
+			stat.Type = File
+		}
+
+		stats = append(stats, stat) // HLxxx
+
+		if fi.IsDir() {
+			return nil
+		}
+		return err
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return stats, err
+}
+
+// ENDINDEX OMIT
