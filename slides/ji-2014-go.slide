@@ -299,60 +299,7 @@ Let's modify `ex-02` to take an optional `-v` argument to enable a verbose mode,
 .code _code/ex-02-flag.go /^func main/,/^}/ HLflag
 
 
-* ex-03 - parsing a text file
-
-Let's create a new `ex-03` program which will open a text file and count words in it:
-
-  $ ex-03 testdata/lorem-ipsum.txt
-  69
-
-*Hint:* `godoc` `os` `Open`
-*Hint:* `godoc` `io` `EOF`
-*Hint:* `godoc` `bufio`
-
-*Hint:* if it returns `70` you are not correctly handling empty strings.
-
-* ex-03 (solution)
-
-.code _code/ex-03.go /^func main/,/^}/ HLxxx
-
-
-* ex-03 - II
-
-Let's modify `ex-03` to display general statistics:
-- number of lines
-- number of words
-- 5 most popular words
-
- $ ex-03 testdata/lorem-ipsum.txt
-  #lines: 7
-  #words: 69
-
-  popcon:
-  #1: "in" (3)
-  #2: "ut" (2)
-  #3: "dolore" (2)
-  #4: "dolor" (2)
-  #5: "voluptate" (1)
-
-*Hint:* use a `map[string]int`
-*Hint:* `godoc` `sort` `Sort`
-*Hint:* `godoc` `sort` `Reverse`
-
-* ex-03 - II (solution)
-
-.code _code/ex-03-stats.go /START OMIT/,/END OMIT/ HLxxx
-
-
-* ex-03 - II (solution)
-
-.code _code/ex-03-stats.go /STARTSORT OMIT/,/ENDSORT OMIT/ HLxxx
-
-* ex-03 - II (solution)
-
-.code _code/ex-03-stats.go /STARTITEM OMIT/,/ENDITEM OMIT/ HLxxx
-
-* ex-04 - rot13
+* ex-03 - rot13
 
 Let's create a new `rot13` package:
 
@@ -363,21 +310,21 @@ Let's create a new `rot13` package:
 .link http://en.wikipedia.org/wiki/ROT13
 
 
-* ex-04 - rot13 - II
+* ex-03 - rot13 - II
 
 - in that `rot13` package, create `rot13_test.go` with the following content:
 
 .code _code/rot13_test.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/ HLxxx
 
 
-* ex-04 - rot13 - III
+* ex-03 - rot13 - III
 
 - in that `rot13` package, create `rot13_test.go` with the following content:
 
 .code _code/rot13_test.go /^func TestRot13/,/^}/ HLxxx
 
 
-* ex-04 - rot13 - IV
+* ex-03 - rot13 - IV
 
 - still in `rot13`, create `rot13.go` with the following content:
 
@@ -402,18 +349,18 @@ and modify the `rot13` function until the test passes.
 - `go` `test` builds and runs the tests in the local directory.
 
 
-* ex-04 - V
+* ex-03 - V
 
 A common pattern in `Go` is an `io.Reader` that wraps another `io.Reader`, modifying the stream in some way.
 
 A typical example is the `encoding/gzip.NewReader` function which takes an `io.Reader` (a stream of gzipped data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
 
-- create a new `ex-04` program with the following content:
+- create a new `ex-03` program with the following content:
 
-.code _code/ex-04.go HLxxx
+.code _code/ex-03.go HLxxx
 
 
-* ex-04 - VI
+* ex-03 - VI
 
 - now, in `rot13.go` implement the `io.Reader` interface:
 
@@ -425,67 +372,156 @@ A typical example is the `encoding/gzip.NewReader` function which takes an `io.R
 
 - eventually, the following should work:
 
-  $ echo "hello" | ex-04
+  $ echo "hello" | ex-03
   uryyb
 
-  $ echo "hello" | ex-04 | ex-04
+  $ echo "hello" | ex-03 | ex-03
   hello
 
 
-* ex-05 - walking and indexing a filesystem tree
-
-In this last exercize, we'll create a command which:
-- will walk a filesystem hierarchy, 
-- collect some metadata about the directories and files, 
-- store this metadata in a `JSON` format,
-# - and implement (simple) queries to this metadata store.
-
-* ex-05 - start
-
-Let's start with the following `ex-05.go`:
-
-.code _code/ex-05.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/
-
-* ex-05 - start (cont'd)
-
-.code _code/ex-05.go /^func main/,/^}/ HLflag
-
-* ex-05 - metadata
-
-We'll store informations about files and directories in the following struct:
-
-.code _code/ex-05.go /STARTSTAT OMIT/,/ENDSTAT OMIT/ HLflag
-
-Now, modify `main` to accumulate metadata in a `[]Stat` slice during the `filepath.Walk`.
-
-* ex-05 - metadata (solution)
-
-.code _code/ex-05-accstat.go /STARTWALK OMIT/,/ENDWALK OMIT/ HLxxx
-
-* ex-05 - storage
-
-- Modify `ex-05` to accept a `-o` argument defaulting to `"index.json"`, to get the path to the file which will hold the `JSON` representation of `[]Stat`,
-
-- Using the documentation of `"encoding/json"`, store `[]Stat` in the index file.
+* A (final) larger example
 
 
-* ex-05 - storage (solution)
+* Top 10 identifiers in std library
 
-.code _code/ex-05-accstat.go /STARTENCODE OMIT/,/ENDENCODE OMIT/ HLxxx
+.code _code/idents.go
+
+  $ cat $(find $GOROOT -name '*.go') | ./idents | sort | uniq -c | sort -nr | sed 10q
+  3.08s user 2.49s system 171% cpu 3.245 total
+
+* A variation: Histogram of Go statements
+
+A histogram is a map from statement name ("if", "for", etc.) to use count:
+
+.code _code/histo0.go /histogram START/,/histogram END/
+
+Algorithm:
+
+- Use walkStdLib to traverse all files of the std library
+- For each file, parse and create abstract syntax tree
+- Traverse syntax tree and add each statement to histogram
+- Print the result
+
+.code _code/histo0.go /main START/,/main END/
 
 
-* ex-05 - storage (bis)
+* Processing a Go source file
 
-Actually, we changed our mind: it should be possible to store the index in `JSON` or in `XML`.
+.code _code/histo0.go /add START/,/add END/
 
-- Modify `ex-05` to change the encoding method based on the extension of the index file (`".xml"` or `".json"`)
 
-*Hint:* create a local `Encoder interface` the `JSON` and `XML` encoders can implicitly satisfy.
+* Printing the histogram
 
-* ex-05 - storage (bis) (solution)
+.play _code/histo0.go /print START/,/print END/
 
-.code _code/ex-05-storage.go /STARTINTERFACE OMIT/,/ENDINTERFACE OMIT/ HLxxx
-.code _code/ex-05-storage.go /STARTENCODE OMIT/,/ENDENCODE OMIT/ HLxxx
+Note: Histogram (map) iteration order is not specified.
+
+* Sorting
+
+sort.Sort operates on any type that implements the sort.Interface:
+
+	interface {
+		Len() int
+		Swap(i, j int)
+		Less(i, j int) bool
+	}
+
+For instance, to sort a slice of strings lexically, define:
+
+.code _code/sort.go /lexical START/,/lexical END/
+
+And sort:
+
+	sort.Sort(lexical(s))  // where s is a []string slice
+
+
+* Sorting histogram entries
+
+.code _code/histo.go /byCount START/,/byCount END/
+
+
+* Improved histogram printing
+
+.play _code/histo.go /print START/,/print END/
+
+
+* Concurrency
+
+* Goroutines
+
+- The _go_ statement launches a function call as a goroutine
+	go f()
+	go f(x, y, ...)
+
+- A goroutine runs concurrently (but not necessarily in parallel)
+- A goroutine has its own stack
+
+
+* A simple example
+
+.code _code/concurrency1.go /f START/,/f END/
+
+Function f is launched as 3 different goroutines, all running concurrently:
+
+.play _code/concurrency1.go /main START/,/main END/
+
+
+* Communication via channels
+
+A channel type specifies a channel value type (and possibly a communication direction):
+
+	chan int
+	chan<- string  // send-only channel
+	<-chan T       // receive-only channel
+
+A channel is a variable of channel type:
+
+	var ch chan int
+	ch := make(chan int)  // declare and initialize with newly made channel
+
+A channel permits _sending_ and _receiving_ values:
+
+	ch <- 1   // send value 1 on channel ch
+	x = <-ch  // receive a value from channel ch (and assign to x)
+
+Channel operations synchronize the communicating goroutines.
+
+* Communicating goroutines
+
+Each goroutine sends its results via channel ch:
+
+.code _code/concurrency2.go /f START/,/f END/
+
+The main goroutine receives (and prints) all results from the same channel:
+
+.play _code/concurrency2.go /main START/,/main END/
+
+
+* Putting it all together
+
+
+* Analyze files concurrently, map-reduce style
+
+Mapper:
+
+.code _code/histop.go /mapper START/,/mapper END/
+
+Reducer:
+
+.code _code/histop.go /reducer START/,/reducer END/
+
+.code _code/histop.go /merge START/,/merge END/
+
+
+* From sequential program...
+
+.play _code/histo.go /main START/,/main END/
+
+
+* ... to concurrent program
+
+.play _code/histop.go /main START/,/main END/
+
 
 * Acknowledgements / resources
 
@@ -495,4 +531,59 @@ Most of this tutorial has been extracted or adapted from:
 
 .link http://tour.golang.org
 
+
+* Extra
+
+* extra-01 - parsing a text file
+
+Let's create a new `extra-01` program which will open a text file and count words in it:
+
+  $ extra-01 testdata/lorem-ipsum.txt
+  69
+
+*Hint:* `godoc` `os` `Open`
+*Hint:* `godoc` `io` `EOF`
+*Hint:* `godoc` `bufio`
+
+*Hint:* if it returns `70` you are not correctly handling empty strings.
+
+* extra-01 (solution)
+
+.code _code/extra-01.go /^func main/,/^}/ HLxxx
+
+
+* extra-01 - II
+
+Let's modify `extra-01` to display general statistics:
+- number of lines
+- number of words
+- 5 most popular words
+
+ $ extra-01 testdata/lorem-ipsum.txt
+  #lines: 7
+  #words: 69
+
+  popcon:
+  #1: "in" (3)
+  #2: "ut" (2)
+  #3: "dolore" (2)
+  #4: "dolor" (2)
+  #5: "voluptate" (1)
+
+*Hint:* use a `map[string]int`
+*Hint:* `godoc` `sort` `Sort`
+*Hint:* `godoc` `sort` `Reverse`
+
+* extra-01 - II (solution)
+
+.code _code/extra-01-stats.go /START OMIT/,/END OMIT/ HLxxx
+
+
+* extra-01 - II (solution)
+
+.code _code/extra-01-stats.go /STARTSORT OMIT/,/ENDSORT OMIT/ HLxxx
+
+* extra-01 - II (solution)
+
+.code _code/extra-01-stats.go /STARTITEM OMIT/,/ENDITEM OMIT/ HLxxx
 
