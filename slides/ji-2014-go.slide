@@ -421,6 +421,30 @@ Initial code in: [[http://github.com/sbinet/ji-2014-go/blob/master/indexer/main.
 
 Note: Histogram (map) iteration order is not specified.
 
+* Results (so far)
+
+  $ time indexer
+     0.  25.55%  53991  *ast.AssignStmt
+     1.   1.84%   3883  *ast.ForStmt
+     2.   0.06%    129  *ast.LabeledStmt
+     3.   1.10%   2325  *ast.BranchStmt
+     4.   0.60%   1259  *ast.SwitchStmt
+     5.   2.59%   5478  *ast.DeclStmt
+  [...]
+     9.  26.33%  55651  *ast.BlockStmt
+    10.  12.93%  27335  *ast.IfStmt
+    11.  11.72%  24759  *ast.ExprStmt
+    12.   2.66%   5617  *ast.CaseClause
+    13.   1.34%   2833  *ast.RangeStmt
+  [...]
+    18.   0.16%    348  *ast.GoStmt
+  indexer  2.87s user 0.06s system 101% cpu 2.900 total
+
+compared to:
+
+  $ cat $(find $GOROOT -name '*.go') | ./idents | sort | uniq -c | sort -nr | sed 10q
+  3.08s user 2.49s system 171% cpu 3.245 total
+
 * Sorting
 
 sort.Sort operates on any type that implements the sort.Interface:
@@ -449,7 +473,7 @@ And sort:
 
 .play _code/histo.go /print START/,/print END/
 
-
+ 
 * Concurrency
 
 * Goroutines
@@ -534,6 +558,8 @@ Most of this tutorial has been extracted or adapted from:
 
 .link http://talks.golang.org/2012/tutorial.slide
 
+.link http://talks.golang.org/2014/taste.slide
+
 .link http://tour.golang.org
 
 
@@ -543,7 +569,7 @@ Most of this tutorial has been extracted or adapted from:
 
 Let's create a new `extra-01` program which will open a text file and count words in it:
 
-  $ extra-01 testdata/lorem-ipsum.txt
+  $ extra-01 github.com/sbinet/ji-2014-go/testdata/lorem-ipsum.txt
   69
 
 *Hint:* `godoc` `os` `Open`
