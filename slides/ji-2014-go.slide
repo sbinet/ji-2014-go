@@ -83,7 +83,7 @@ Run `zip` tests:
 Build and format the files in the current directory:
 
   $ go build
-  $ gofmt .
+  $ gofmt -w .
 
 Fetch and install `websocket`:
 
