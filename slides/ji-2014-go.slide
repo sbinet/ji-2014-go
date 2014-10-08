@@ -410,7 +410,7 @@ A typical example is the `encoding/gzip.NewReader` function which takes an `io.R
 
 - create a new `ex-04` program with the following content:
 
-.code _code/ex-04.go
+.code _code/ex-04.go HLxxx
 
 
 * ex-04 - VI

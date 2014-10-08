@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/ji-go/rot13"
+	"github.com/ji-go/rot13" // HLxxx
 )
 
 func main() {
