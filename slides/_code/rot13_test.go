@@ -1,10 +1,10 @@
 // STARTIMPORT OMIT
 
-package rot13
+package rot13 // HLxxx
 
 import (
 	"reflect"
-	"testing"
+	"testing" // HLxxx
 )
 
 // ENDIMPORT OMIT
@@ -14,18 +14,12 @@ func TestRot13(t *testing.T) {
 		str  []byte
 		want []byte
 	}{
-		{
-			str:  []byte("Lbh penpxrq gur pbqr!"),
-			want: []byte("You cracked the code!"),
-		},
-		{
-			str:  []byte("hello"),
-			want: []byte("uryyb"),
-		},
+		{str: []byte("Lbh penpxrq gur pbqr!"), want: []byte("You cracked the code!")},
+		{str: []byte("hello"), want: []byte("uryyb")},
 	} {
 		o := make([]byte, len(table.str))
 		for i, b := range table.str {
-			o[i] = rot13(b)
+			o[i] = rot13(b) // HLxxx
 		}
 
 		if !reflect.DeepEqual(o, table.want) {
