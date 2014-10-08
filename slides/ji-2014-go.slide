@@ -58,7 +58,7 @@ Go is a new, general-purpose programming language.
 
 Put this code into `hello.go`:
 
-.play tutorial/hello.go
+.play _tutorial/hello.go
 
 # Now, from a command prompt, run `go run hello.go`. This will build your program, storing the executable binary in a temporary location, and run it. You should see the greeting printed to the console.
 
@@ -160,13 +160,13 @@ Create a `hello-web` directory in your namespace and put `hello-web.go` there:
 
   $ mkdir $GOPATH/src/github.com/ji-go/hello-web
 
-.code tutorial/hello-web.go
+.code _tutorial/hello-web.go
 
 # Build and run `go build && ./hello-web`
 
 * ex-01: a program printing out its arguments
 
-.code tutorial/ex-01.go
+.code _tutorial/ex-01.go
 
   $ ex-01 foo bar baz 01234
   args: [ex-01 foo bar baz 01234]
@@ -249,7 +249,7 @@ Modify `ex-01` to iterate over this slice and print each argument (except the ex
 
 * ex-01 - II (solution)
 
-.code tutorial/ex-01-index.go
+.code _tutorial/ex-01-index.go
 
 
 * ex-02 - a simple calculator
@@ -269,7 +269,7 @@ Let's create a new `ex-02` program taking integers as arguments from the command
 
 * ex-02 - solution
 
-.code tutorial/ex-02.go
+.code _tutorial/ex-02.go
 
 
 * ex-02 - II
@@ -296,7 +296,7 @@ Let's modify `ex-02` to take an optional `-v` argument to enable a verbose mode,
 
 * ex-02 - II (solution)
 
-.code tutorial/ex-02-flag.go /^func main/,/^}/ HLflag
+.code _tutorial/ex-02-flag.go /^func main/,/^}/ HLflag
 
 
 * ex-03 - parsing a text file
@@ -314,7 +314,7 @@ Let's create a new `ex-03` program which will open a text file and count words i
 
 * ex-03 (solution)
 
-.code tutorial/ex-03.go /^func main/,/^}/ HLxxx
+.code _tutorial/ex-03.go /^func main/,/^}/ HLxxx
 
 
 * ex-03 - II
@@ -341,16 +341,16 @@ Let's modify `ex-03` to display general statistics:
 
 * ex-03 - II (solution)
 
-.code tutorial/ex-03-stats.go /START OMIT/,/END OMIT/ HLxxx
+.code _tutorial/ex-03-stats.go /START OMIT/,/END OMIT/ HLxxx
 
 
 * ex-03 - II (solution)
 
-.code tutorial/ex-03-stats.go /STARTSORT OMIT/,/ENDSORT OMIT/ HLxxx
+.code _tutorial/ex-03-stats.go /STARTSORT OMIT/,/ENDSORT OMIT/ HLxxx
 
 * ex-03 - II (solution)
 
-.code tutorial/ex-03-stats.go /STARTITEM OMIT/,/ENDITEM OMIT/ HLxxx
+.code _tutorial/ex-03-stats.go /STARTITEM OMIT/,/ENDITEM OMIT/ HLxxx
 
 * ex-04 - rot13
 
@@ -367,14 +367,14 @@ Let's create a new `rot13` package:
 
 - in that `rot13` package, create `rot13_test.go` with the following content:
 
-.code tutorial/rot13_test.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/
+.code _tutorial/rot13_test.go /STARTIMPORT OMIT/,/ENDIMPORT OMIT/
 
 
 * ex-04 - rot13 - III
 
 - in that `rot13` package, create `rot13_test.go` with the following content:
 
-.code tutorial/rot13_test.go /^func TestRot13/,/^}/
+.code _tutorial/rot13_test.go /^func TestRot13/,/^}/
 
 
 * ex-04 - rot13 - IV
@@ -410,14 +410,14 @@ A typical example is the `encoding/gzip.NewReader` function which takes an `io.R
 
 - create a new `ex-04` program with the following content:
 
-.code tutorial/ex-04.go
+.code _tutorial/ex-04.go
 
 
 * ex-04 - VI
 
 - now, in `rot13.go` implement the `io.Reader` interface:
 
-.code tutorial/rot13.go /STARTROT13 OMIT/,/ENDROT13 OMIT/
+.code _tutorial/rot13.go /STARTROT13 OMIT/,/ENDROT13 OMIT/
 
   func (r reader) Read(p []byte) (int, error) {
        // ...
@@ -442,7 +442,7 @@ In this last exercize, we'll create a command which:
 
 * Acknowledgements / resources
 
-Most of this tutorial/workshop has been extracted or adapted from:
+Most of this tutorial has been extracted or adapted from:
 
 .link http://talks.golang.org/2012/tutorial.slide
 
