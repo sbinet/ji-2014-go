@@ -93,7 +93,6 @@ code (you'll need `git` to fetch the code):
 
 ```sh
 $ go get -u -v github.com/sbinet/ji-2014-go/cmd/ji-hello
-$ go get -u -v code.google.com/p/go.tools/cmd/present
 ```
 
 `go get` downloaded (cloned, in `git` speak) the whole
@@ -110,6 +109,22 @@ Hello JI-2014!
 
 $ ji-hello you
 Hello you!
+```
+
+### Installing one more needed dependency
+
+In order to look at the slides off-line, we'll need the `present` tool.
+Let's install it:
+
+```sh
+$ go get -u -v code.google.com/p/go.tools/cmd/present
+code.google.com/p/go.tools (download)
+code.google.com/p/go.net (download)
+code.google.com/p/go.tools/godoc/static
+code.google.com/p/go.net/websocket
+code.google.com/p/go.tools/present
+code.google.com/p/go.tools/playground/socket
+code.google.com/p/go.tools/cmd/present
 ```
 
 ## Setting up your favorite editor
