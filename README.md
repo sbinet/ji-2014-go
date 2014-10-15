@@ -114,7 +114,7 @@ Hello you!
 ### Installing one more needed dependency
 
 In order to look at the slides off-line, we'll need the `present` tool.
-Let's install it:
+Let's install it (you'll need `hg` *a.k.a* `mercurial`):
 
 ```sh
 $ go get -u -v code.google.com/p/go.tools/cmd/present
