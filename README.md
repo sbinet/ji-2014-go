@@ -89,7 +89,12 @@ slightly. The important env.vars. are `GOPATH` and `GOROOT`.)
 ### Testing `go get`
 
 Now that the `go` tool is correctly setup, let's try to fetch some
-code (you'll need `git` to fetch the code):
+code.
+For this part, you'll need the following tools installed to actually retrieve the code from the repositories:
+- `git`
+- `hg` (*a.k.a* `mercurial`)
+
+Without further ado:
 
 ```sh
 $ go get -u -v github.com/sbinet/ji-2014-go/cmd/ji-hello
@@ -114,7 +119,7 @@ Hello you!
 ### Installing one more needed dependency
 
 In order to look at the slides off-line, we'll need the `present` tool.
-Let's install it (you'll need `hg` *a.k.a* `mercurial`):
+Let's install it:
 
 ```sh
 $ go get -u -v code.google.com/p/go.tools/cmd/present
