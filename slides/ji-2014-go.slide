@@ -87,7 +87,7 @@ Build and format the files in the current directory:
 
 Fetch and install `websocket`:
 
-  $ go get code.google.com/p/go.net/websocket 
+  $ go get golang.org/x/net/websocket
 
 * Workspaces
 
