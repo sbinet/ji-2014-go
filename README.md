@@ -122,14 +122,14 @@ In order to look at the slides off-line, we'll need the `present` tool.
 Let's install it:
 
 ```sh
-$ go get -u -v code.google.com/p/go.tools/cmd/present
-code.google.com/p/go.tools (download)
-code.google.com/p/go.net (download)
-code.google.com/p/go.tools/godoc/static
-code.google.com/p/go.net/websocket
-code.google.com/p/go.tools/present
-code.google.com/p/go.tools/playground/socket
-code.google.com/p/go.tools/cmd/present
+$  go get -u -v golang.org/x/tools/cmd/present
+golang.org/x/tools (download)
+golang.org/x/net (download)
+golang.org/x/tools/godoc/static
+golang.org/x/net/websocket
+golang.org/x/tools/present
+golang.org/x/tools/playground/socket
+golang.org/x/tools/cmd/present
 ```
 
 ## Setting up your favorite editor
